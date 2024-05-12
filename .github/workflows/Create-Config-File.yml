@@ -42,16 +42,9 @@ jobs:
     - name: 下载OpenWRT及其他包代码
       id: download_code
       run: |
-        REPO_URL=https://github.com/openwrt/openwrt
+        REPO_URL=https://github.com/coolsnowwolf/lede
         git clone $REPO_URL openwrt
         cd openwrt
-        echo 所有分支：&&git branch -r
-        echo 所有标签：&&git tag
-        LATEST_BRANCH=$(git branch -r | sed 's/origin\///'|tail -n1)
-        LATEST_TAG=$(git tag | grep -v 'rc'|tail -n1)
-        echo 选择最新分支：$LATEST_BRANCH
-        echo 选择最新非RC标签：$LATEST_TAG
-        git checkout $LATEST_TAG
         rm -rf package/helloworld
         git clone --depth=1 https://github.com/fw876/helloworld.git package/helloworld
         git clone https://github.com/jerrykuku/luci-theme-argon.git package/luci-theme-argon
@@ -63,9 +56,6 @@ jobs:
         ./scripts/feeds install -a
         rm -rf feeds/packages/lang/golang
         cp -r ../gogogo/lang/golang/ feeds/packages/lang/
-        echo "repo_url=${REPO_URL}" >> $GITHUB_OUTPUT
-        echo "latest_branch=${LATEST_BRANCH}" >> $GITHUB_OUTPUT
-        echo "latest_tag=${LATEST_TAG}" >> $GITHUB_OUTPUT
         echo "-------------------------查看工作目录-------------------------"
         echo "当前位置："&& pwd
         echo "当前目录文件："&& ls -la
