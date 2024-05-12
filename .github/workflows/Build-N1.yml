@@ -1,4 +1,4 @@
-name: Build OpenWrt x86-64
+name: Build OpenWrt N1
 on: 
   workflow_dispatch:
   schedule:
@@ -67,7 +67,7 @@ jobs:
     - name: 下载OpenWRT及其他包代码
       id: download_code
       run: |
-        REPO_URL=https://github.com/openwrt/openwrt
+        REPO_URL=https://github.com/coolsnowwolf/lede
         git clone $REPO_URL openwrt
         cd openwrt
         echo 所有分支：&&git branch -r
@@ -76,7 +76,6 @@ jobs:
         LATEST_TAG=$(git tag | grep -v 'rc'|tail -n1)
         echo 选择最新分支：$LATEST_BRANCH
         echo 选择最新非RC标签：$LATEST_TAG
-        git checkout $LATEST_TAG
         rm -rf package/helloworld
         git clone --depth=1 https://github.com/fw876/helloworld.git package/helloworld
         git clone https://github.com/jerrykuku/luci-theme-argon.git package/luci-theme-argon
@@ -97,7 +96,7 @@ jobs:
     - name: 复制.config文件
       run: |
         cd openwrt
-        mv ../config/x86_64.config .config
+        mv ../config/n1.config .config
     - name: 预下载软件包
       run: |
         cd openwrt 
