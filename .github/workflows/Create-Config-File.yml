@@ -33,8 +33,7 @@ jobs:
         echo "-------------------------查看工作目录-------------------------"
         echo "当前位置："&& pwd
         echo "当前目录文件："&& ls -la
-    - name: 迁出代码
-      uses: actions/checkout@v3
+
     - name: 查看工作目录
       run: |
         echo "当前位置："&& pwd
@@ -59,10 +58,7 @@ jobs:
         echo "-------------------------查看工作目录-------------------------"
         echo "当前位置："&& pwd
         echo "当前目录文件："&& ls -la
-    - name: 复制.config文件
-      run: |
-        cd openwrt
-        mv ../config/x86_64.config .config
+
     - name: Setup tmate session
       uses: mxschmitt/action-tmate@v3
 
